@@ -154,6 +154,23 @@ select{
 }
 select:focus-visible{outline:2px solid var(--amber);outline-offset:1px}
 
+.report-cta{
+  margin-left:auto;
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--ink);
+  background:var(--amber);
+  border:1px solid var(--amber);
+  padding:9px 16px;
+  text-decoration:none;
+  white-space:nowrap;
+  transition:opacity .15s;
+}
+.report-cta:hover{opacity:0.9}
+.report-cta:focus-visible{outline:2px solid var(--paper);outline-offset:2px}
+
 .chips{display:flex;flex-wrap:wrap;gap:7px;padding:14px 0 2px}
 .chip{
   font-family:var(--mono);
