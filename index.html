@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The British Hotspot Register</title>
+<meta name="description" content="A working field catalogue of Britain's high-strangeness clusters, rated for strangeness and evidence quality." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Archivo+Expanded:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0e141b;
+    --ink-2:#141c26;
+    --ink-3:#1b2632;
+    --line:#26333f;
+    --line-2:#33475a;
+    --haze:#8ba0b6;
+    --haze-dim:#5f7385;
+    --paper:#e2e9f1;
+    --amber:#e8a33d;
+    --amber-soft:rgba(232,163,61,0.14);
+    --amber-line:rgba(232,163,61,0.45);
+    --disp:"Archivo Expanded",system-ui,sans-serif;
+    --body:"Archivo",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  html{scroll-behavior:smooth}
+
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    /* faint survey-grid wash, kept very low so it reads as texture not decoration */
+    background-image:
+      linear-gradient(rgba(51,71,90,0.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(51,71,90,0.05) 1px,transparent 1px);
+    background-size:44px 44px;
+    background-position:center top;
+  }
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  /* ---------- Masthead ---------- */
+  header{
+    border-bottom:1px solid var(--line);
+    padding:52px 0 30px;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--amber);
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+  .eyebrow::after{
+    content:"";
+    height:1px;
+    flex:1;
+    background:linear-gradient(90deg,var(--amber-line),transparent);
+  }
+  h1{
+    font-family:var(--disp);
+    font-weight:800;
+    font-size:clamp(2.1rem,6vw,4.2rem);
+    line-height:0.98;
+    letter-spacing:-0.01em;
+    margin:20px 0 0;
+    text-transform:uppercase;
+  }
+  .lede{
+    color:var(--haze);
+    max-width:60ch;
+    margin-top:18px;
+    font-size:1.05rem;
+  }
+
+  .readout{
+    display:flex;
+    flex-wrap:wrap;
+    gap:26px;
+    margin-top:30px;
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.05em;
+    color:var(--haze);
+  }
+  .readout b{color:var(--paper);font-weight:500}
+  .readout span{display:block;color:var(--haze-dim);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;margin-top:3px}
+
+  /* ---------- Method key ---------- */
+  .key{
+    margin-top:34px;
+    border:1px solid var(--line);
+    background:linear-gradient(180deg,var(--ink-2),var(--ink));
+    padding:20px 22px;
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:26px;
+  }
+  .key h2{
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--amber);
+    margin-bottom:12px;
+  }
+  .axis-row{display:flex;align-items:baseline;gap:10px;margin-bottom:9px;font-size:13px;color:var(--haze)}
+  .axis-tag{font-family:var(--mono);color:var(--paper);font-size:12px;min-width:104px}
+  .tiers{display:flex;flex-direction:column;gap:8px}
+  .tier-line{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--haze)}
+  .pip{width:11px;height:11px;border:1px solid var(--amber);flex:none}
+  .pip.solid{background:var(--amber)}
+  .pip.two{background:linear-gradient(90deg,var(--amber) 50%,transparent 50%)}
+  .pip.hollow{background:transparent}
+
+  /* ---------- Controls ---------- */
+  .controls{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(14,20,27,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    padding:16px 0;
+    margin-top:0;
+  }
+  .controls .wrap{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .search{
+    flex:1 1 220px;
+    display:flex;align-items:center;gap:9px;
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    padding:9px 13px;
+  }
+  .search:focus-within{border-color:var(--amber-line)}
+  .search svg{flex:none;opacity:0.6}
+  .search input{
+    background:none;border:none;outline:none;color:var(--paper);
+    font-family:var(--body);font-size:14px;width:100%;
+  }
+  .search input::placeholder{color:var(--haze-dim)}
+
+  select{
+    background:var(--ink-2);
+    color:var(--paper);
+    border:1px solid var(--line);
+    padding:9px 12px;
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.04em;
+    cursor:pointer;
+  }
+  select:focus-visible{outline:2px solid var(--amber);outline-offset:1px}
+
+  .chips{display:flex;flex-wrap:wrap;gap:7px;padding:14px 0 2px}
+  .chip{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--haze);
+    background:transparent;
+    border:1px solid var(--line-2);
+    padding:6px 11px;
+    cursor:pointer;
+    transition:border-color .15s,color .15s,background .15s;
+  }
+  .chip:hover{color:var(--paper);border-color:var(--line-2)}
+  .chip[aria-pressed="true"]{
+    color:var(--ink);
+    background:var(--amber);
+    border-color:var(--amber);
+  }
+  .chip:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+  .count{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--haze-dim);
+    padding:16px 0 4px;
+  }
+
+  /* ---------- Cards ---------- */
+  main{padding:8px 0 60px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:12px}
+
+  .card{
+    border:1px solid var(--line);
+    background:linear-gradient(180deg,var(--ink-2),var(--ink));
+    padding:22px 22px 18px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    opacity:0;
+    transform:translateY(14px);
+    animation:rise .5s ease forwards;
+  }
+  @keyframes rise{to{opacity:1;transform:none}}
+  .card:hover{border-color:var(--line-2)}
+  .card::before{
+    content:"";
+    position:absolute;top:0;left:0;width:34px;height:2px;background:var(--amber);
+  }
+
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .caseid{font-family:var(--mono);font-size:11px;color:var(--haze-dim);letter-spacing:0.1em}
+  .stamp{
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--haze);
+    border:1px solid var(--line-2);
+    padding:4px 8px;
+    display:flex;align-items:center;gap:7px;
+    white-space:nowrap;
+  }
+
+  .card h3{
+    font-family:var(--disp);
+    font-weight:700;
+    font-size:1.5rem;
+    line-height:1.05;
+    text-transform:uppercase;
+    margin:12px 0 5px;
+    letter-spacing:-0.01em;
+  }
+  .place{font-family:var(--mono);font-size:11.5px;color:var(--haze);letter-spacing:0.04em;margin-bottom:14px}
+  .place .coords{color:var(--haze-dim)}
+
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+  .tag{
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--amber);
+    background:var(--amber-soft);
+    border:1px solid var(--amber-line);
+    padding:3px 7px;
+  }
+
+  .summary{color:var(--haze);font-size:14px;line-height:1.6;margin-bottom:16px}
+  .summary strong{color:var(--paper);font-weight:600}
+
+  /* twin-axis meters: the signature element */
+  .meters{display:flex;flex-direction:column;gap:11px;margin-bottom:16px}
+  .meter-label{
+    display:flex;justify-content:space-between;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--haze);margin-bottom:5px;
+  }
+  .meter-label b{color:var(--paper);font-weight:500}
+  .track{position:relative;height:6px;background:var(--ink-3);border:1px solid var(--line)}
+  .fill{position:absolute;left:0;top:0;bottom:0;background:var(--amber)}
+  .thresh{position:absolute;top:-3px;bottom:-3px;width:1px;background:var(--line-2);border-left:1px dashed var(--haze-dim)}
+
+  details{border-top:1px solid var(--line);margin-top:auto}
+  summary{
+    list-style:none;cursor:pointer;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--haze);padding:13px 0 3px;display:flex;align-items:center;gap:9px;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary .plus{color:var(--amber);transition:transform .2s}
+  details[open] summary .plus{transform:rotate(45deg)}
+  summary:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+  .cases{padding:6px 0 4px}
+  .caserow{padding:10px 0;border-bottom:1px solid var(--line)}
+  .caserow:last-child{border-bottom:none}
+  .caseyr{font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:0.05em}
+  .casetitle{color:var(--paper);font-size:13.5px;font-weight:600;margin:2px 0 3px}
+  .casedesc{color:var(--haze);font-size:13px;line-height:1.55}
+
+  .notes{
+    margin-top:12px;padding:12px 14px;background:var(--ink-3);border-left:2px solid var(--line-2);
+    font-size:12.5px;color:var(--haze);line-height:1.55;
+  }
+  .notes b{color:var(--haze);font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:5px;color:var(--haze-dim)}
+
+  .sources{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+  .sources a,.sources span{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.03em;color:var(--haze);
+    text-decoration:none;border-bottom:1px solid transparent;
+  }
+  .sources a:hover{color:var(--amber);border-bottom-color:var(--amber-line)}
+  .sources span{color:var(--haze-dim)}
+
+  .empty{
+    grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--haze-dim);
+    font-family:var(--mono);font-size:13px;letter-spacing:0.05em;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{border-top:1px solid var(--line);padding:34px 0 60px;color:var(--haze-dim);font-size:13px}
+  footer .fgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:30px}
+  footer h4{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
+  footer p{color:var(--haze);line-height:1.6;max-width:52ch}
+  footer code{font-family:var(--mono);font-size:12px;color:var(--paper);background:var(--ink-3);padding:1px 5px}
+  .brand{margin-top:26px;font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--haze-dim)}
+
+  @media (max-width:820px){
+    .grid{grid-template-columns:1fr}
+    .key{grid-template-columns:1fr;gap:18px}
+    footer .fgrid{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .card{animation:none;opacity:1;transform:none}
+    html{scroll-behavior:auto}
+    summary .plus,.details[open] summary .plus{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">theparanormalpad · field archive</div>
+    <h1>The British<br />Hotspot Register</h1>
+    <p class="lede">A working catalogue of Britain's high-strangeness clusters: places where sightings, cryptids, lights and the unexplained pile up in one patch of ground. Each entry is rated on two axes and sorted by how well it actually holds up.</p>
+
+    <div class="readout" id="readout"></div>
+
+    <div class="key">
+      <div>
+        <h2>How each site is scored</h2>
+        <div class="axis-row"><span class="axis-tag">A · Strangeness</span><span>How anomalous and how varied the reported phenomena are. High means many kinds of strangeness, tightly clustered.</span></div>
+        <div class="axis-row"><span class="axis-tag">B · Evidence</span><span>Quality of the record: witness calibre, contemporaneous documentation, physical traces, independence from tabloid amplification.</span></div>
+        <div class="axis-row"><span class="axis-tag">Threshold</span><span>The dashed marker sits at 60, the working bar for a case worth serious follow-up.</span></div>
+      </div>
+      <div>
+        <h2>Standing</h2>
+        <div class="tiers">
+          <div class="tier-line"><span class="pip solid"></span> Well-documented: strong, independent, on record</div>
+          <div class="tier-line"><span class="pip two"></span> Mixed: real reports, heavy amplification</div>
+          <div class="tier-line"><span class="pip two"></span> Volume-driven: many reports, thin proof</div>
+          <div class="tier-line"><span class="pip hollow"></span> Single-source or likely explained</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="wrap">
+    <label class="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" id="search" placeholder="Search sites, phenomena, cases..." aria-label="Search the register" />
+    </label>
+    <select id="nation" aria-label="Filter by nation">
+      <option value="">All nations</option>
+      <option value="England">England</option>
+      <option value="Scotland">Scotland</option>
+      <option value="Wales">Wales</option>
+    </select>
+    <select id="sort" aria-label="Sort sites">
+      <option value="evidence">Sort: evidence</option>
+      <option value="strangeness">Sort: strangeness</option>
+      <option value="az">Sort: A to Z</option>
+    </select>
+  </div>
+  <div class="wrap"><div class="chips" id="chips" role="group" aria-label="Filter by phenomenon"></div></div>
+</div>
+
+<main>
+  <div class="wrap">
+    <div class="count" id="count"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h4>Method</h4>
+        <p>Scores are an editorial starting point, not a verdict. Strangeness and evidence are judged separately on purpose: a site can be wildly strange and poorly evidenced, or mundane and well recorded. Tune the numbers as you dig. The aim is to keep the well-attested cases and the tabloid-amplified ones visibly apart.</p>
+      </div>
+      <div>
+        <h4>Adding a report</h4>
+        <p>Open <code>index.html</code>, find the <code>SITES</code> array near the top of the script, and copy one block. Fill in the fields, save, commit. Filters and totals rebuild themselves from the data.</p>
+      </div>
+    </div>
+    <div class="brand">theparanormalpad.com · built to grow · last revised 2026</div>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   THE BRITISH HOTSPOT REGISTER  ·  data
+   ---------------------------------------------------------------------
+   To add a site, copy one { ... } block and edit it. Fields:
+     id          short case code, shown top-left (e.g. "UK-011")
+     name        site name
+     nation      "England" | "Scotland" | "Wales"
+     region      county / area line
+     coords      rough lat,long as a string (for your future map)
+     period      active date range, free text
+     phenomena   array of tags (reused across the site to build filters)
+     tier        "documented" | "mixed" | "volume" | "single"
+     strangeness 0-100  (Axis A)
+     evidence    0-100  (Axis B)
+     summary     1-2 sentences, your words. <strong> allowed.
+     cases       array of { year, title, desc }
+     notes       skeptical / context line (optional)
+     sources     array of { label, url }  -- omit url for a text-only note
+   Keep dashes as plain hyphens.
+   ===================================================================== */
+
+const SITES = [
+  {
+    id:"UK-001", name:"Rendlesham Forest", nation:"England",
+    region:"Suffolk · Rendlesham", coords:"52.09, 1.44",
+    period:"Dec 1980, plus later reports",
+    phenomena:["UFO / Lights","Entity / Humanoid","Military","Physical Traces"],
+    tier:"documented", strangeness:82, evidence:70,
+    summary:"Britain's best-attested UFO case. Over three nights, US airmen from the twin bases at Bentwaters and Woodbridge reported lights and a landed object beside a site that stored nuclear weapons. The strength here is the <strong>witness calibre and the contemporaneous paper trail</strong>.",
+    cases:[
+      {year:"1980", title:"The Halt memo", desc:"Deputy base commander Charles Halt filed an official memo describing lights that moved through the trees and appeared to direct beams down toward the weapons-storage area."},
+      {year:"1980", title:"Ground traces", desc:"Investigators reported impressions in the forest floor and raised radiation readings at the alleged landing site, though interpretation of both is disputed."},
+      {year:"2010s", title:"Burroughs medical case", desc:"Airman John Burroughs later won recognition of a service-connected injury; his medical records were held classified, a thread that keeps the case alive."}
+    ],
+    notes:"The mundane candidates (the Orfordness lighthouse, a bright fireball that night) are real and account for parts of it. What they do not cleanly cover is the close-range object multiple trained personnel described.",
+    sources:[{label:"Wikipedia: Rendlesham Forest incident", url:"https://en.wikipedia.org/wiki/Rendlesham_Forest_incident"}]
+  },
+  {
+    id:"UK-002", name:"Cannock Chase", nation:"England",
+    region:"Staffordshire · Cannock Chase", coords:"52.75, -2.00",
+    period:"1980s to present",
+    phenomena:["UFO / Lights","Cryptid","Black-Eyed Child","Big Cat","Ghost / Haunting"],
+    tier:"mixed", strangeness:88, evidence:38,
+    summary:"The closest British match to the <strong>Skinwalker profile</strong>: not one phenomenon but a pile-up of them on one stretch of forest. Lights, a dogman, black-eyed children, a big cat, a local 'Pig-Man' and heavy wartime ghost lore all cluster here, over a landscape with a genuinely dark modern history.",
+    cases:[
+      {year:"2015", title:"Three red lights", desc:"Multiple witnesses reported a large craft with three red lights hovering over the forest; earlier the same year, hundreds reported a low, slow, house-shaking object."},
+      {year:"2013+", title:"Black-eyed child", desc:"Recurring encounters with a pale child with wholly black eyes near Birches Valley. Sincere reports exist, but the story goes viral in cycles and is heavily tabloid-driven."},
+      {year:"ongoing", title:"Dogman and big cat", desc:"Werewolf-type and black-panther sightings recur across the Chase, feeding the 'paranormal ecology' idea that one underlying strangeness drives them all."}
+    ],
+    notes:"A large, dark forest near dense population with a grim real history (the 1960s child murders) is close to a perfect engine for lore, independent of any anomaly. Treat the cluster as real and the cause as open.",
+    sources:[
+      {label:"Wikipedia: Cannock Chase", url:"https://en.wikipedia.org/wiki/Cannock_Chase"},
+      {label:"Weird World: Cannock Chase hotspot", url:"https://weird-world.net/cannock-chase-paranormal-hotspot/"}
+    ]
+  },
+  {
+    id:"UK-003", name:"Bonnybridge", nation:"Scotland",
+    region:"Stirlingshire · Falkirk Triangle", coords:"56.00, -3.88",
+    period:"Early 1990s to present",
+    phenomena:["UFO / Lights"],
+    tier:"volume", strangeness:60, evidence:45,
+    summary:"Scotland's UFO capital and one corner of the Falkirk Triangle. Its case rests on <strong>sheer volume</strong>: reports have run at roughly 300 a year since the early 1990s, enough that the local council formally engaged with it.",
+    cases:[
+      {year:"1992", title:"The flap begins", desc:"A wave of sightings around Bonnybridge kicked off a run that, unusually, never really stopped, turning a small town into a standing reporting hotspot."},
+      {year:"ongoing", title:"Council petitions", desc:"Local councillor Billy Buchanan repeatedly pressed for official investigation on behalf of residents, a rare instance of local government taking the volume seriously."}
+    ],
+    notes:"Volume is a real phenomenon worth studying, but it is mostly lights and unexplained aerial objects, with little physical evidence. Flight paths and the reputation-feedback loop account for an unknown share.",
+    sources:[{label:"Wikipedia: Bonnybridge", url:"https://en.wikipedia.org/wiki/Bonnybridge"}]
+  },
+  {
+    id:"UK-004", name:"Todmorden", nation:"England",
+    region:"West Yorkshire · Calder Valley", coords:"53.71, -2.10",
+    period:"1980, within wider 'UFO Alley'",
+    phenomena:["UFO / Lights","Abduction","Entity / Humanoid","Animal Deaths"],
+    tier:"documented", strangeness:80, evidence:55,
+    summary:"A Pennine valley that produced two of Britain's most-cited cases within months, both with <strong>unusually credible anchors</strong>: a serving police officer and a coroner who could not explain a death.",
+    cases:[
+      {year:"1980", title:"PC Alan Godfrey", desc:"A uniformed police officer reported a close encounter and possible missing time on a Todmorden road, later exploring the episode under regression. His standing as a witness is what keeps it discussed."},
+      {year:"1980", title:"Zigmund Adamski", desc:"A miner found dead on a coal tip with unexplained burns and an unidentified ointment on his body. The coroner recorded that he could not explain the circumstances."}
+    ],
+    notes:"The Godfrey regression material is soft evidence and should be held lightly. The Adamski death is genuinely unresolved, which is rarer and more interesting than the UFO framing usually given it.",
+    sources:[
+      {label:"Wikipedia: Alan Godfrey", url:"https://en.wikipedia.org/wiki/Alan_Godfrey"},
+      {label:"Wikipedia: Zigmund Adamski", url:"https://en.wikipedia.org/wiki/Zigmund_Adamski"}
+    ]
+  },
+  {
+    id:"UK-005", name:"Warminster", nation:"England",
+    region:"Wiltshire · Cradle Hill", coords:"51.20, -2.18",
+    period:"1965 to mid-1970s",
+    phenomena:["UFO / Lights","Crop Circles"],
+    tier:"volume", strangeness:65, evidence:40,
+    summary:"The classic British UFO flap. From 1965, sounds and lights known collectively as 'the Thing' drew <strong>crowds of skywatchers</strong> to Cradle Hill, in country that later became crop-circle heartland next to Salisbury Plain.",
+    cases:[
+      {year:"1965", title:"The Thing", desc:"Reports of strange sounds and aerial objects around Warminster, popularised by local journalist Arthur Shuttlewood, grew into a years-long public phenomenon."},
+      {year:"1960s-70s", title:"Cradle Hill vigils", desc:"Organised night watches drew large groups hoping to witness the lights, making Warminster an early template for the UFO-tourism feedback loop."}
+    ],
+    notes:"Proximity to a major military training area supplies obvious candidates for lights and sounds. The flap is historically important but heavily anecdotal and era-bound.",
+    sources:[{label:"Wikipedia: Warminster", url:"https://en.wikipedia.org/wiki/Warminster"}]
+  },
+  {
+    id:"UK-006", name:"Broad Haven", nation:"Wales",
+    region:"Pembrokeshire · Dyfed Triangle", coords:"51.78, -5.10",
+    period:"1977",
+    phenomena:["UFO / Lights","Entity / Humanoid"],
+    tier:"mixed", strangeness:68, evidence:42,
+    summary:"The heart of the 1977 'Dyfed Triangle' wave. The signature event is a <strong>mass sighting by schoolchildren</strong>, followed by a run of reports of craft and silver-suited figures across the coast that year.",
+    cases:[
+      {year:"1977", title:"The school sighting", desc:"Pupils at Broad Haven Primary reported seeing a landed craft during a break; separated and asked to draw it, several produced broadly matching sketches."},
+      {year:"1977", title:"Ripperston Farm", desc:"A nearby farm became a focus for reports of humanoid figures and further craft, extending the wave through the wider area."}
+    ],
+    notes:"Multiple young witnesses give the school case some weight, but children can prime each other, and later hoax explanations circulate. Genuine, but soft.",
+    sources:[{label:"Wikipedia: Broad Haven", url:"https://en.wikipedia.org/wiki/Broad_Haven"}]
+  },
+  {
+    id:"UK-007", name:"Longdendale Valley", nation:"England",
+    region:"Derbyshire · Peak District", coords:"53.47, -1.90",
+    period:"Folklore to present",
+    phenomena:["UFO / Lights","Ghost / Haunting"],
+    tier:"mixed", strangeness:55, evidence:30,
+    summary:"A Peak District valley with a <strong>centuries-old spook-light tradition</strong>, layered over modern UFO and ghost reports. The lights predate the UFO era, which makes it a useful test case for natural explanations.",
+    cases:[
+      {year:"long-standing", title:"The Longdendale Lights", desc:"Recurring accounts of moving lights on the hills, long folded into local folklore before anyone framed them as UFOs."},
+      {year:"modern", title:"Layered reports", desc:"Later decades added ghost sightings and aerial anomalies, giving the valley a multi-phenomenon reputation on a smaller scale than Cannock."}
+    ],
+    notes:"Earth-light and mundane candidates (distant headlights, atmospheric effects) are strong here precisely because the tradition is so old and so tied to specific terrain.",
+    sources:[{label:"Wikipedia: Longdendale", url:"https://en.wikipedia.org/wiki/Longdendale"}]
+  },
+  {
+    id:"UK-008", name:"Bempton", nation:"England",
+    region:"East Yorkshire · Flamborough coast", coords:"54.14, -0.17",
+    period:"2010s to present",
+    phenomena:["UFO / Lights","Cryptid","Entity / Humanoid"],
+    tier:"single", strangeness:78, evidence:25,
+    summary:"Actively marketed as 'the UK Skinwalker Ranch', mostly through the work of one researcher. Reports of craft, creatures and coastal high strangeness cluster here, but the case rests <strong>largely on a single body of work</strong> rather than broad independent documentation.",
+    cases:[
+      {year:"ongoing", title:"Sinclair's casework", desc:"Researcher Paul Sinclair has compiled sightings along this stretch of coast and frames Bempton and the Flamborough area as a live, ongoing hotspot."},
+      {year:"ongoing", title:"The branding", desc:"The direct 'British Skinwalker' comparison drives much of the attention, which is a reason to weigh the label separately from the underlying reports."}
+    ],
+    notes:"Take this one with more salt than the others: it is closer to one investigator building a case than an independently established cluster. Worth tracking, not yet worth leaning on.",
+    sources:[
+      {label:"Paranormal lecture (Sinclair)", url:"https://filezip.substack.com/p/the-uk-skinwalker-ranch-the-expose"}
+    ]
+  },
+  {
+    id:"UK-009", name:"Berwyn Mountains", nation:"Wales",
+    region:"Denbighshire · Berwyn range", coords:"52.90, -3.40",
+    period:"23 January 1974",
+    phenomena:["UFO / Lights"],
+    tier:"single", strangeness:45, evidence:30,
+    summary:"The 'Welsh Roswell'. On one night, lights, a tremor and rumours of a recovered craft with bodies converged, but this is a case where the <strong>mundane explanation is unusually strong</strong>.",
+    cases:[
+      {year:"1974", title:"The night itself", desc:"A genuine earth tremor coincided with meteor activity and lights on the hills, and the combination fused in retelling into a crash narrative."},
+      {year:"later", title:"The crash rumour", desc:"Claims of bodies and a military recovery attached themselves afterward, without support, and are widely regarded as embroidery on a natural event."}
+    ],
+    notes:"Included precisely as a contrast case: strange in reputation, well explained in fact. Good for calibrating how a mundane cluster can masquerade as an anomaly.",
+    sources:[
+      {label:"Context: earthquake plus bolide, Jan 1974"}
+    ]
+  },
+  {
+    id:"UK-010", name:"Pentyrch", nation:"Wales",
+    region:"near Cardiff · Pentyrch", coords:"51.53, -3.28",
+    period:"February 2016",
+    phenomena:["UFO / Lights","Entity / Humanoid","Military"],
+    tier:"single", strangeness:75, evidence:28,
+    summary:"A dramatic recent Welsh case: a large craft, military helicopters, explosions and damaged woodland, over a single night. But the <strong>extraordinary detail traces mainly to one primary witness</strong>, and a mundane candidate exists.",
+    cases:[
+      {year:"2016", title:"The night of activity", desc:"Reports describe low-flying helicopters, road closures and a huge craft ejecting a smaller object, with claimed physical traces in nearby woodland."},
+      {year:"2016", title:"Exercise Chameleon", desc:"The Army and RAF attributed the aircraft activity to a routine training exercise, and the site sits on a natural military corridor between St Athan and the Brecon Beacons."}
+    ],
+    notes:"The load-bearing testimony is thin and single-sourced, and the location supplies an ordinary explanation for a night of military aircraft. High interest, low current evidence.",
+    sources:[
+      {label:"Primary account via researcher Caz Clarke"}
+    ]
+  }
+];
+
+/* =====================================================================
+   Rendering and filtering
+   ===================================================================== */
+
+const TIER_LABEL = {documented:"Well-documented", mixed:"Mixed", volume:"Volume-driven", single:"Single-source"};
+const TIER_PIP   = {documented:"solid", mixed:"two", volume:"two", single:"hollow"};
+
+const state = { q:"", nation:"", sort:"evidence", phenomena:new Set() };
+
+const grid = document.getElementById("grid");
+const countEl = document.getElementById("count");
+const chipsEl = document.getElementById("chips");
+
+// readout stats
+(function readout(){
+  const nations = new Set(SITES.map(s=>s.nation));
+  const phen = new Set(SITES.flatMap(s=>s.phenomena));
+  document.getElementById("readout").innerHTML = `
+    <div><b>${SITES.length}</b><span>Sites logged</span></div>
+    <div><b>${nations.size}</b><span>Nations</span></div>
+    <div><b>${phen.size}</b><span>Phenomenon types</span></div>
+    <div><b>${SITES.filter(s=>s.evidence>=60).length}</b><span>Above threshold</span></div>
+  `;
+})();
+
+// phenomenon chips
+const ALL_PHEN = [...new Set(SITES.flatMap(s=>s.phenomena))].sort();
+ALL_PHEN.forEach(p=>{
+  const b=document.createElement("button");
+  b.className="chip"; b.textContent=p; b.setAttribute("aria-pressed","false");
+  b.addEventListener("click",()=>{
+    if(state.phenomena.has(p)){state.phenomena.delete(p);b.setAttribute("aria-pressed","false");}
+    else{state.phenomena.add(p);b.setAttribute("aria-pressed","true");}
+    render();
+  });
+  chipsEl.appendChild(b);
+});
+
+document.getElementById("search").addEventListener("input",e=>{state.q=e.target.value.toLowerCase();render();});
+document.getElementById("nation").addEventListener("change",e=>{state.nation=e.target.value;render();});
+document.getElementById("sort").addEventListener("change",e=>{state.sort=e.target.value;render();});
+
+function matches(s){
+  if(state.nation && s.nation!==state.nation) return false;
+  if(state.phenomena.size && ![...state.phenomena].every(p=>s.phenomena.includes(p))) return false;
+  if(state.q){
+    const hay=(s.name+" "+s.region+" "+s.summary+" "+s.phenomena.join(" ")+" "+s.cases.map(c=>c.title+" "+c.desc).join(" ")).toLowerCase();
+    if(!hay.includes(state.q)) return false;
+  }
+  return true;
+}
+
+function sortList(list){
+  if(state.sort==="az") return list.sort((a,b)=>a.name.localeCompare(b.name));
+  const k = state.sort==="strangeness" ? "strangeness" : "evidence";
+  return list.sort((a,b)=>b[k]-a[k]);
+}
+
+function esc(t){return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function rich(t){ // allow only <strong>
+  return esc(t).replace(/&lt;strong&gt;/g,"<strong>").replace(/&lt;\/strong&gt;/g,"</strong>");
+}
+
+function meter(label, val){
+  return `<div>
+    <div class="meter-label"><span>${label}</span><b>${val}</b></div>
+    <div class="track"><div class="fill" style="width:${val}%"></div><div class="thresh" style="left:60%"></div></div>
+  </div>`;
+}
+
+function sourceHTML(src){
+  return src.map(x=> x.url
+    ? `<a href="${x.url}" target="_blank" rel="noopener">${esc(x.label)} &#8599;</a>`
+    : `<span>${esc(x.label)}</span>`
+  ).join("");
+}
+
+function card(s,i){
+  return `<article class="card" style="animation-delay:${Math.min(i*60,420)}ms">
+    <div class="card-top">
+      <span class="caseid">${s.id}</span>
+      <span class="stamp"><span class="pip ${TIER_PIP[s.tier]}"></span>${TIER_LABEL[s.tier]}</span>
+    </div>
+    <h3>${esc(s.name)}</h3>
+    <div class="place">${esc(s.region)} &nbsp;·&nbsp; <span class="coords">${esc(s.coords)}</span> &nbsp;·&nbsp; ${esc(s.period)}</div>
+    <div class="tags">${s.phenomena.map(p=>`<span class="tag">${esc(p)}</span>`).join("")}</div>
+    <p class="summary">${rich(s.summary)}</p>
+    <div class="meters">
+      ${meter("A · Strangeness", s.strangeness)}
+      ${meter("B · Evidence", s.evidence)}
+    </div>
+    <details>
+      <summary><span class="plus">+</span> ${s.cases.length} key case${s.cases.length>1?"s":""} on file</summary>
+      <div class="cases">
+        ${s.cases.map(c=>`<div class="caserow"><div class="caseyr">${esc(c.year)}</div><div class="casetitle">${esc(c.title)}</div><div class="casedesc">${esc(c.desc)}</div></div>`).join("")}
+      </div>
+      ${s.notes?`<div class="notes"><b>Skeptical read</b>${esc(s.notes)}</div>`:""}
+      <div class="sources">${sourceHTML(s.sources)}</div>
+    </details>
+  </article>`;
+}
+
+function render(){
+  const list=sortList(SITES.filter(matches));
+  countEl.textContent = list.length===SITES.length
+    ? `Showing all ${SITES.length} sites`
+    : `${list.length} of ${SITES.length} sites`;
+  grid.innerHTML = list.length
+    ? list.map(card).join("")
+    : `<div class="empty">No sites match those filters. Clear one to widen the search.</div>`;
+}
+
+render();
+</script>
+</body>
+</html>
