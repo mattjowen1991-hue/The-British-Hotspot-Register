@@ -23,3 +23,8 @@ template. The full field-by-field schema is documented in `data/schema.md`.
 See `PROJECT.md` for the full brief: file layout, data model, house style
 (plain hyphens only, no invented source URLs, evidence discipline), and how
 ticket work is organised.
+
+## Community and intake
+
+See `COMMUNITY.md` for how the Reddit community and the public report intake
+form are planned to feed cases into the Register.

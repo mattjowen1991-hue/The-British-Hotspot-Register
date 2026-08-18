@@ -1,4 +1,4 @@
-# The British Hotspot Register — Project Brief
+# The British Hotspot Register - Project Brief
 
 This file is the shared context for the project. Read it at the start of a working
 session before picking up a ticket. It explains what this is, how it is built, the
@@ -16,8 +16,8 @@ readers, so the tone is investigative and sober, not spooky or sensational.
 The core idea: every site is scored on two independent axes and sorted by how well
 it holds up, so well-attested cases stay visibly separate from tabloid-amplified ones.
 
-- **Axis A — Strangeness (0-100):** how anomalous and how varied the phenomena are.
-- **Axis B — Evidence Quality (0-100):** witness calibre, contemporaneous records,
+- **Axis A - Strangeness (0-100):** how anomalous and how varied the phenomena are.
+- **Axis B - Evidence Quality (0-100):** witness calibre, contemporaneous records,
   physical traces, independence from tabloid amplification.
 - **Threshold: 60.** The working bar for "worth serious follow-up." (This mirrors an
   existing UAP document-scoring rubric used elsewhere on the project.)
@@ -70,22 +70,22 @@ apart so a "new case" ticket never has to touch rendering code.
 
 Each site is one object. Fields:
 
-- `id` — short case code shown top-left, e.g. "UK-011".
-- `name` — site name.
-- `nation` — "England" | "Scotland" | "Wales".
-- `region` — county / area line.
-- `coords` — rough "lat, long" string (reserved for a future map view).
-- `period` — active date range, free text.
-- `phenomena` — array of tag strings. Tags are reused across sites to build the filter
+- `id` - short case code shown top-left, e.g. "UK-011".
+- `name` - site name.
+- `nation` - "England" | "Scotland" | "Wales".
+- `region` - county / area line.
+- `coords` - rough "lat, long" string (reserved for a future map view).
+- `period` - active date range, free text.
+- `phenomena` - array of tag strings. Tags are reused across sites to build the filter
   chips automatically, so reuse existing tag spellings exactly rather than inventing
   near-duplicates.
-- `tier` — "documented" | "mixed" | "volume" | "single". Drives the standing stamp.
-- `strangeness` — integer 0-100 (Axis A).
-- `evidence` — integer 0-100 (Axis B).
-- `summary` — 1-2 sentences, original wording. `<strong>` is the only allowed inline tag.
-- `cases` — array of `{ year, title, desc }`.
-- `notes` — optional skeptical / context line.
-- `sources` — array of `{ label, url }`. Omit `url` for a text-only source note.
+- `tier` - "documented" | "mixed" | "volume" | "single". Drives the standing stamp.
+- `strangeness` - integer 0-100 (Axis A).
+- `evidence` - integer 0-100 (Axis B).
+- `summary` - 1-2 sentences, original wording. `<strong>` is the only allowed inline tag.
+- `cases` - array of `{ year, title, desc }`.
+- `notes` - optional skeptical / context line.
+- `sources` - array of `{ label, url }`. Omit `url` for a text-only source note.
 
 Full documented schema: `data/schema.md`.
 
@@ -140,3 +140,6 @@ upgrade, a bug, or a new case/site to add. When picking up a ticket:
 - Swap Wikipedia anchor links for primary documents as they are sourced.
 - Optional: a compact A/B scatter plot of all sites (strangeness vs evidence) as a
   landing visual, threshold lines at 60 on both axes.
+
+More backlog seeds, covering the Reddit community and the public report intake
+pipeline, are in `COMMUNITY.md`.
