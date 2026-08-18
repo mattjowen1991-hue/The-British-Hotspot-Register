@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Submit a Report · The British Hotspot Register</title>
+<meta name="description" content="Report a British high-strangeness sighting or experience. Anonymous by default, reviewed by hand." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Archivo+Expanded:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0e141b; --ink-2:#141c26; --ink-3:#1b2632;
+    --line:#26333f; --line-2:#33475a;
+    --haze:#8ba0b6; --haze-dim:#5f7385; --paper:#e2e9f1;
+    --amber:#e8a33d; --amber-soft:rgba(232,163,61,0.14); --amber-line:rgba(232,163,61,0.45);
+    --err:#e06d5a;
+    --disp:"Archivo Expanded",system-ui,sans-serif;
+    --body:"Archivo",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--ink);color:var(--paper);font-family:var(--body);font-size:16px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    background-image:linear-gradient(rgba(51,71,90,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(51,71,90,0.05) 1px,transparent 1px);
+    background-size:44px 44px;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:0 24px}
+
+  header{border-bottom:1px solid var(--line);padding:44px 0 28px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:var(--amber);display:flex;gap:10px;align-items:center}
+  .eyebrow::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,var(--amber-line),transparent)}
+  .back{font-family:var(--mono);font-size:11px;color:var(--haze);text-decoration:none;letter-spacing:0.05em}
+  .back:hover{color:var(--amber)}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(1.9rem,5vw,3rem);line-height:1;letter-spacing:-0.01em;margin:18px 0 0;text-transform:uppercase}
+  .lede{color:var(--haze);max-width:60ch;margin-top:16px}
+  .lede b{color:var(--paper);font-weight:500}
+
+  form{padding:30px 0 60px}
+  fieldset{border:1px solid var(--line);background:linear-gradient(180deg,var(--ink-2),var(--ink));padding:22px;margin-bottom:18px}
+  legend{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);padding:0 8px;margin-left:-4px}
+  .fnote{color:var(--haze-dim);font-size:12.5px;margin-bottom:16px;line-height:1.5}
+
+  .field{margin-bottom:16px}
+  .field:last-child{margin-bottom:0}
+  label.q{display:block;font-size:13.5px;color:var(--paper);margin-bottom:6px;font-weight:500}
+  label.q .req{color:var(--amber);font-family:var(--mono);font-size:11px;margin-left:5px}
+  label.q .opt{color:var(--haze-dim);font-family:var(--mono);font-size:11px;margin-left:5px;letter-spacing:0.04em}
+
+  input[type=text],input[type=email],select,textarea{
+    width:100%;background:var(--ink-3);border:1px solid var(--line);color:var(--paper);
+    font-family:var(--body);font-size:14px;padding:10px 12px;
+  }
+  textarea{resize:vertical;min-height:96px;line-height:1.55}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--amber-line)}
+  input::placeholder,textarea::placeholder{color:var(--haze-dim)}
+  select{font-family:var(--mono);font-size:13px;cursor:pointer}
+
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:560px){.row{grid-template-columns:1fr}}
+
+  .checks{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+  @media (max-width:560px){.checks{grid-template-columns:1fr}}
+  .check{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--haze);cursor:pointer}
+  .check input{width:16px;height:16px;accent-color:var(--amber);flex:none;cursor:pointer}
+
+  .consent{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--haze);cursor:pointer;margin-bottom:12px;line-height:1.5}
+  .consent:last-child{margin-bottom:0}
+  .consent input{width:16px;height:16px;accent-color:var(--amber);flex:none;margin-top:2px;cursor:pointer}
+
+  .hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
+
+  .actions{display:flex;align-items:center;gap:18px;margin-top:8px}
+  button{
+    font-family:var(--mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--ink);background:var(--amber);border:1px solid var(--amber);
+    padding:13px 26px;cursor:pointer;transition:opacity .15s;
+  }
+  button:hover{opacity:0.9}
+  button:disabled{opacity:0.5;cursor:default}
+  button:focus-visible{outline:2px solid var(--paper);outline-offset:2px}
+  .privacy-line{font-family:var(--mono);font-size:11px;color:var(--haze-dim);letter-spacing:0.03em}
+
+  .banner{padding:16px 18px;border:1px solid var(--line);margin-bottom:18px;font-size:14px;display:none}
+  .banner.show{display:block}
+  .banner.ok{border-color:var(--amber-line);background:var(--amber-soft);color:var(--paper)}
+  .banner.bad{border-color:var(--err);color:var(--err)}
+  .banner b{font-family:var(--disp);text-transform:uppercase;font-size:1.1rem;display:block;margin-bottom:4px;letter-spacing:-0.01em}
+
+  footer{border-top:1px solid var(--line);padding:26px 0 60px;color:var(--haze-dim);font-size:12px;font-family:var(--mono);letter-spacing:0.05em}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">theparanormalpad · field archive</div>
+    <div style="margin-top:14px"><a class="back" href="index.html">&#8592; back to the register</a></div>
+    <h1>Submit a Report</h1>
+    <p class="lede">Saw something you cannot explain in Britain? Log it here. Every submission is <b>read and reviewed by hand</b>, and if it holds up it may be recorded on the Register. This form is <b>anonymous by default</b>. You only share your name or contact if you choose to.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="banner ok" id="ok"><b>Report received</b>Thank you. We review every submission by hand. If it is logged, you will find it on the Register. Nothing you sent is published without your consent.</div>
+  <div class="banner bad" id="bad"><b>That did not send</b>Something went wrong. Please try again in a moment. If it keeps failing, the form may not be configured yet.</div>
+
+  <form id="reportForm">
+    <!-- Web3Forms hidden fields. Replace the access key with your own from web3forms.com -->
+    <input type="hidden" name="access_key" value="0c4ab822-c9b4-4d9a-98ac-d7bcf8a784dd" />
+    <input type="hidden" name="subject" value="New report - British Hotspot Register" />
+    <input type="hidden" name="from_name" value="Hotspot Register intake" />
+    <!-- honeypot: bots fill this, humans never see it -->
+    <label class="hp">Leave this empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" /></label>
+
+    <fieldset>
+      <legend>The event</legend>
+      <div class="field">
+        <label class="q" for="datetime">Date and time<span class="req">required</span></label>
+        <input type="text" id="datetime" name="Date and time" placeholder="e.g. 26 Feb 2016, around 10pm" required />
+      </div>
+      <div class="row">
+        <div class="field">
+          <label class="q" for="place">Place or nearest landmark<span class="req">required</span></label>
+          <input type="text" id="place" name="Place" placeholder="e.g. Pentyrch" required />
+        </div>
+        <div class="field">
+          <label class="q" for="town">Nearest town<span class="opt">optional</span></label>
+          <input type="text" id="town" name="Nearest town" placeholder="e.g. Cardiff" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label class="q" for="nation">Nation<span class="req">required</span></label>
+          <select id="nation" name="Nation" required>
+            <option value="">Select...</option>
+            <option>England</option><option>Scotland</option><option>Wales</option>
+            <option>Northern Ireland</option><option>Other / at sea</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="q" for="coords">Approx coordinates<span class="opt">optional</span></label>
+          <input type="text" id="coords" name="Coordinates" placeholder="e.g. 51.53, -3.28" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label class="q" for="duration">How long did it last?<span class="opt">optional</span></label>
+          <input type="text" id="duration" name="Duration" placeholder="e.g. 2 minutes" />
+        </div>
+        <div class="field">
+          <label class="q" for="witnesses">Number of witnesses<span class="opt">optional</span></label>
+          <input type="text" id="witnesses" name="Witnesses" placeholder="e.g. 3" />
+        </div>
+      </div>
+      <div class="field">
+        <label class="q" for="conditions">Conditions: weather, light, visibility<span class="opt">optional</span></label>
+        <input type="text" id="conditions" name="Conditions" placeholder="e.g. clear, dark, no moon" />
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>What you saw</legend>
+      <div class="field">
+        <label class="q">Phenomenon type<span class="opt">tick any</span></label>
+        <div class="checks">
+          <label class="check"><input type="checkbox" name="phenomena" value="UFO / Lights" /> UFO / Lights</label>
+          <label class="check"><input type="checkbox" name="phenomena" value="Entity / Humanoid" /> Entity / Humanoid</label>
+          <label class="check"><input type="checkbox" name="phenomena" value="Cryptid" /> Cryptid</label>
+          <label class="check"><input type="checkbox" name="phenomena" value="Big Cat" /> Big Cat</label>
+          <label class="check"><input type="checkbox" name="phenomena" value="Black-Eyed Child" /> Black-Eyed Child</label>
+          <label class="check"><input type="checkbox" name="phenomena" value="Ghost / Haunting" /> Ghost / Haunting</label>
+          <label class="check"><input type="checkbox" name="phenomena" value="Abduction" /> Abduction</label>
+          <label class="check"><input type="checkbox" name="phenomena" value="Animal Deaths" /> Animal Deaths</label>
+          <label class="check"><input type="checkbox" name="phenomena" value="Military" /> Military</label>
+          <label class="check"><input type="checkbox" name="phenomena" value="Physical Traces" /> Physical Traces</label>
+          <label class="check"><input type="checkbox" name="phenomena" value="Crop Circles" /> Crop Circles</label>
+          <label class="check"><input type="checkbox" name="phenomena" value="Other" /> Other</label>
+        </div>
+      </div>
+      <div class="field">
+        <label class="q" for="account_type">Firsthand or secondhand?<span class="req">required</span></label>
+        <select id="account_type" name="Account type" required>
+          <option value="">Select...</option>
+          <option>Firsthand (I witnessed it)</option>
+          <option>Secondhand (I heard or read it)</option>
+          <option>Historical</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="q" for="account">What happened?<span class="req">required</span></label>
+        <textarea id="account" name="Account" placeholder="In your own words, in the order it happened. As much detail as you can." required></textarea>
+      </div>
+      <div class="field">
+        <label class="q" for="ruledout">Ordinary explanations you have already ruled out<span class="opt">optional</span></label>
+        <textarea id="ruledout" name="Ruled out" placeholder="e.g. aircraft, drones, planets, lanterns. This helps us assess it fairly."></textarea>
+      </div>
+      <div class="field">
+        <label class="q" for="evidence">Evidence links: photo, video, audio<span class="opt">optional</span></label>
+        <textarea id="evidence" name="Evidence" placeholder="Paste links only."></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>About you</legend>
+      <p class="fnote">Optional and kept private. Never published. Used only if we need to follow up with you. Leave both blank to stay fully anonymous.</p>
+      <div class="row">
+        <div class="field">
+          <label class="q" for="name">Name or handle<span class="opt">optional, private</span></label>
+          <input type="text" id="name" name="Name or handle" placeholder="However you want to be known" />
+        </div>
+        <div class="field">
+          <label class="q" for="email">Contact email<span class="opt">optional, private</span></label>
+          <input type="email" id="email" name="Contact email" placeholder="Only if you are happy to be contacted" />
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Consent</legend>
+      <label class="consent"><input type="checkbox" name="Consent to log" value="Yes" required /> I consent to this account being recorded and, if it holds up, logged on the Register anonymously.</label>
+      <label class="consent"><input type="checkbox" name="Understands private" value="Yes" required /> I understand any name or contact I gave is private, will not be published, and is only for follow-up.</label>
+    </fieldset>
+
+    <div class="actions">
+      <button type="submit" id="submitBtn">Send report</button>
+      <span class="privacy-line">anonymous by default · reviewed by hand</span>
+    </div>
+  </form>
+</div>
+
+<footer>
+  <div class="wrap">theparanormalpad.com · logged is not endorsed · every report reviewed before it is recorded</div>
+</footer>
+
+<script>
+const form = document.getElementById("reportForm");
+const ok = document.getElementById("ok");
+const bad = document.getElementById("bad");
+const btn = document.getElementById("submitBtn");
+
+form.addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  ok.classList.remove("show"); bad.classList.remove("show");
+
+  // build a clean JSON payload; join the phenomena checkboxes into one readable line
+  const fd = new FormData(form);
+  const phenomena = fd.getAll("phenomena");
+  const payload = {};
+  for (const [k,v] of fd.entries()){ if(k!=="phenomena") payload[k]=v; }
+  payload["Phenomena"] = phenomena.length ? phenomena.join(", ") : "(none ticked)";
+
+  btn.disabled = true; btn.textContent = "Sending...";
+  try{
+    const res = await fetch("https://api.web3forms.com/submit",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if(data.success){
+      form.style.display = "none";
+      ok.classList.add("show");
+      ok.scrollIntoView({behavior:"smooth", block:"center"});
+    } else {
+      throw new Error(data.message || "failed");
+    }
+  } catch(err){
+    bad.classList.add("show");
+    bad.scrollIntoView({behavior:"smooth", block:"center"});
+    btn.disabled = false; btn.textContent = "Send report";
+  }
+});
+</script>
+</body>
+</html>
