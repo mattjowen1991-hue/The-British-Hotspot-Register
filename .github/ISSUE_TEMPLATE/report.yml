@@ -1,0 +1,117 @@
+name: "Sighting / experience report"
+description: "Log a British high-strangeness report for review. Public and anonymous. Do not include personal details."
+title: "[Report] "
+labels: ["report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for submitting a report. This issue is PUBLIC. Do not include your name,
+        address, email, phone, or anyone else's. If you are willing to be contacted for
+        follow-up, use the private form (report.html) or modmail instead, not this box.
+  - type: input
+    id: datetime
+    attributes:
+      label: Date and time of event
+      placeholder: "e.g. 2016-02-26, around 10pm"
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Location (place and nearest town)
+      placeholder: "e.g. Pentyrch, near Cardiff"
+    validations:
+      required: true
+  - type: dropdown
+    id: nation
+    attributes:
+      label: Nation
+      options: ["England", "Scotland", "Wales", "Northern Ireland", "Other / at sea"]
+    validations:
+      required: true
+  - type: input
+    id: coords
+    attributes:
+      label: Approximate coordinates (if known)
+      placeholder: "e.g. 51.53, -3.28"
+    validations:
+      required: false
+  - type: dropdown
+    id: phenomena
+    attributes:
+      label: Phenomenon type(s)
+      multiple: true
+      options:
+        - "UFO / Lights"
+        - "Entity / Humanoid"
+        - "Cryptid"
+        - "Big Cat"
+        - "Black-Eyed Child"
+        - "Ghost / Haunting"
+        - "Abduction"
+        - "Animal Deaths"
+        - "Military"
+        - "Physical Traces"
+        - "Crop Circles"
+        - "Other"
+    validations:
+      required: true
+  - type: dropdown
+    id: account_type
+    attributes:
+      label: Is this firsthand or secondhand?
+      options: ["Firsthand (I witnessed it)", "Secondhand (I heard / read it)", "Historical"]
+    validations:
+      required: true
+  - type: input
+    id: witnesses
+    attributes:
+      label: Number of witnesses
+      placeholder: "e.g. 3"
+    validations:
+      required: false
+  - type: input
+    id: duration
+    attributes:
+      label: Roughly how long did it last?
+      placeholder: "e.g. 2 minutes"
+    validations:
+      required: false
+  - type: textarea
+    id: account
+    attributes:
+      label: What happened?
+      description: "In your own words. As much detail as you can, in the order it happened."
+    validations:
+      required: true
+  - type: input
+    id: conditions
+    attributes:
+      label: Conditions (weather, light, visibility)
+      placeholder: "e.g. clear, dark, no moon"
+    validations:
+      required: false
+  - type: textarea
+    id: ruled_out
+    attributes:
+      label: Ordinary explanations you have already considered or ruled out
+      description: "e.g. aircraft, drones, planets, lanterns. Helps us assess it fairly."
+    validations:
+      required: false
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence links (photo, video, audio)
+      description: "Paste links only. Do not upload anything containing personal detail."
+    validations:
+      required: false
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Confirmations
+      options:
+        - label: "This report contains no personal contact details for me or anyone else."
+          required: true
+        - label: "I consent to this being logged publicly and anonymously on the Register."
+          required: true

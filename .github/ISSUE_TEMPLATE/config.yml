@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private report (with contact details)
+    url: https://mattjowen1991-hue.github.io/The-British-Hotspot-Register/report.html
+    about: Use this if you are happy to be contacted for follow-up. Not public.
+  - name: Community rules
+    url: https://REPLACE_WITH_SUBREDDIT_URL
+    about: Read before posting or reporting.
