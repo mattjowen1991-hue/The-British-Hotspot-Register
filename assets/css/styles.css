@@ -41,6 +41,25 @@ header{
   border-bottom:1px solid var(--line);
   padding:52px 0 30px;
   position:relative;
+  overflow:hidden;
+}
+.hero-glyph{
+  position:absolute;
+  top:-120px;
+  right:-80px;
+  width:480px;
+  height:480px;
+  background-image:url("../img/hero-glyph.png");
+  background-size:contain;
+  background-repeat:no-repeat;
+  -webkit-mask-image:radial-gradient(circle,#000 45%,transparent 72%);
+  mask-image:radial-gradient(circle,#000 45%,transparent 72%);
+  opacity:0.8;
+  pointer-events:none;
+  z-index:-1;
+}
+@media (max-width:820px){
+  .hero-glyph{display:none}
 }
 .eyebrow{
   font-family:var(--mono);
