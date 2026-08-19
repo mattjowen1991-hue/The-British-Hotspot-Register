@@ -26,5 +26,7 @@ ticket work is organised.
 
 ## Community and intake
 
-See `COMMUNITY.md` for how the Reddit community and the public report intake
-form are planned to feed cases into the Register.
+The public report form is live at `report.html`, linked from the masthead. See
+`COMMUNITY.md` for how it and the (still-planned) Reddit community feed cases into
+the Register, and `INTAKE-SETUP.md` for the internal GitHub-based triage pipeline
+that turns an accepted report into a Register case.

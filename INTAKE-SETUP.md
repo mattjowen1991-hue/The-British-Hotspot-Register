@@ -9,6 +9,32 @@ ticket.
 
 ---
 
+## Status: built (2026-08-19)
+
+Everything in this brief is done except the one step that genuinely cannot be
+scripted. Confirmed the auto-add workflow has no GraphQL create/update mutation
+(only `deleteProjectV2Workflow` exists) before deferring to the manual step below,
+rather than just taking the brief's word for it.
+
+- `.github/ISSUE_TEMPLATE/report.yml` and `config.yml`: committed. Phenomenon dropdown
+  has all 12 live tags (11 from `assets/js/data.js` plus `Other`).
+- Labels `report`, `report:accepted`, `report:explained`, `report:rejected`: created.
+- Intake board: [Report Intake and Triage](https://github.com/users/mattjowen1991-hue/projects/3),
+  project #3, linked to this repo. Six Status options and all seven custom fields
+  (Phenomenon, Nation, Firsthand, Strangeness, Evidence, Register ID, Reddit thread) are
+  live and confirmed working - a test issue (#4) had every field type set (single-select,
+  number, text) and read back correctly, then the issue was closed.
+- **Still needs a manual step from Matt:** the "auto-add issues labelled `report` to
+  this board" workflow. Go to the [Report Intake and Triage](https://github.com/users/mattjowen1991-hue/projects/3)
+  board -> `...` menu (top right) -> Workflows -> "Auto-add to project" -> add a filter
+  `label:report` -> enable. Until this is done, new intake issues need `gh project
+  item-add 3 --owner mattjowen1991-hue --url <issue URL>` (or manual add in the UI) to
+  reach the board.
+- The `config.yml` "Community rules" contact link still has a `REPLACE_WITH_SUBREDDIT_URL`
+  placeholder - genuinely pending, no subreddit exists yet.
+
+---
+
 ## 0. Decision recap
 
 The PUBLIC front door is the Web3Forms-backed web form at `report.html` (already live,
