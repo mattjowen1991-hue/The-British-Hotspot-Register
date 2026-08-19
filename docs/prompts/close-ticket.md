@@ -9,13 +9,13 @@ Use this prompt after work is merged and you want to formally close a ticket.
 Paste this into a Claude Code session from `/Users/mattowen_1/projects/british-hotspot-register`, replacing ISSUE_NUMBER:
 
 ```
-I have finished work on ticket #ISSUE_NUMBER for The British Hotspot Register and want to close it properly.
+I have finished work on ticket #ISSUE_NUMBER for The UK Hotspot Register and want to close it properly.
 
 Please:
 
 1. VERIFY SHIP STATE
-   - Fetch the issue: gh issue view ISSUE_NUMBER --repo mattjowen1991-hue/The-British-Hotspot-Register
-   - Check the PR is merged: gh pr list --repo mattjowen1991-hue/The-British-Hotspot-Register --state merged
+   - Fetch the issue: gh issue view ISSUE_NUMBER --repo mattjowen1991-hue/UK-Hotspot-Register
+   - Check the PR is merged: gh pr list --repo mattjowen1991-hue/UK-Hotspot-Register --state merged
    - Confirm the branch is merged into main and there are no uncommitted changes
    - If the PR is not yet merged, stop and say so
 
@@ -54,7 +54,7 @@ Please:
    - Ask if I want to create any of them now using the create-ticket prompt
 
 7. CLOSE THE LOOP
-   - Close the issue: gh issue close ISSUE_NUMBER --repo mattjowen1991-hue/The-British-Hotspot-Register
+   - Close the issue: gh issue close ISSUE_NUMBER --repo mattjowen1991-hue/UK-Hotspot-Register
    - Move to Done on the project board:
      gh project item-edit 2 --owner mattjowen1991-hue --url [ISSUE URL] --field "Status" --value "Done"
    - Delete the feature branch if it was merged:

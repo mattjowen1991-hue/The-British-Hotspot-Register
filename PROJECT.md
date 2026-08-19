@@ -1,4 +1,4 @@
-# The British Hotspot Register - Project Brief
+# The UK Hotspot Register - Project Brief
 
 This file is the shared context for the project. Read it at the start of a working
 session before picking up a ticket. It explains what this is, how it is built, the
@@ -8,7 +8,7 @@ conventions to follow, and how work is organised.
 
 ## 1. What this is
 
-A static, browser-based research archive cataloguing British "high-strangeness"
+A static, browser-based research archive cataloguing UK "high-strangeness"
 hotspots: places where paranormal, UAP, and cryptid reports cluster in one area.
 It belongs to theparanormalpad.com. The audience is serious researchers, not casual
 readers, so the tone is investigative and sober, not spooky or sensational.

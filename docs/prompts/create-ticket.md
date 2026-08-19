@@ -1,6 +1,6 @@
 # create-ticket
 
-Use this prompt to create a new kanban card for The British Hotspot Register.
+Use this prompt to create a new kanban card for The UK Hotspot Register.
 
 ---
 
@@ -9,7 +9,7 @@ Use this prompt to create a new kanban card for The British Hotspot Register.
 Paste this into a Claude Code session from `/Users/mattowen_1/projects/british-hotspot-register`:
 
 ```
-I want to create a new ticket for The British Hotspot Register.
+I want to create a new ticket for The UK Hotspot Register.
 
 [DESCRIBE THE WORK YOU WANT TO DO IN 1-2 SENTENCES]
 
@@ -43,7 +43,7 @@ Please:
 
 5. POST the ticket to GitHub:
    gh issue create \
-     --repo mattjowen1991-hue/The-British-Hotspot-Register \
+     --repo mattjowen1991-hue/UK-Hotspot-Register \
      --title "[TICKET TITLE]" \
      --body "[TICKET BODY]" \
      --label "[LABELS]"

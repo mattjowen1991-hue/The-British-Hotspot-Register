@@ -9,12 +9,12 @@ Use this prompt to start work on an existing kanban card.
 Paste this into a Claude Code session from `/Users/mattowen_1/projects/british-hotspot-register`, replacing ISSUE_NUMBER:
 
 ```
-I want to work on ticket #ISSUE_NUMBER from The British Hotspot Register kanban board.
+I want to work on ticket #ISSUE_NUMBER from The UK Hotspot Register kanban board.
 
 Please:
 
 1. PREFLIGHT
-   - Fetch the issue: gh issue view ISSUE_NUMBER --repo mattjowen1991-hue/The-British-Hotspot-Register
+   - Fetch the issue: gh issue view ISSUE_NUMBER --repo mattjowen1991-hue/UK-Hotspot-Register
    - Read PROJECT.md for the project conventions (dashes, sourcing discipline, file
      structure, no-build-step constraint) and data/schema.md if the ticket touches data.
    - Read every file listed in the ticket's "Implementation notes" section.

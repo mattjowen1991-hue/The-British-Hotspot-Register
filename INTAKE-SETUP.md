@@ -1,6 +1,6 @@
 # Intake Setup Brief (for Claude Code)
 
-Goal: stand up the report-intake pipeline for The British Hotspot Register. This is
+Goal: stand up the report-intake pipeline for The UK Hotspot Register. This is
 separate from the website engineering board. Read `PROJECT.md` and `COMMUNITY.md` first
 for context, especially the shared report schema.
 
@@ -46,7 +46,7 @@ from this form to create a clean, structured card on the intake board. This keep
 public path frictionless while the triage record stays structured.
 
 There are two boards:
-- **Website board** (already exists - "The British Hotspot Register", project #2):
+- **Website board** (already exists - "The UK Hotspot Register", project #2):
   engineering, features, bugs, infrastructure, and `case` tickets for logged sites.
 - **Intake board** (this brief - "Report Intake and Triage"): incoming reports and
   their triage.
@@ -72,7 +72,7 @@ it drifts as sites are added), not a fixed snapshot:
 
 ```yaml
 name: "Sighting / experience report"
-description: "Log a British high-strangeness report for review. Public and anonymous. Do not include personal details."
+description: "Log a UK high-strangeness report for review. Public and anonymous. Do not include personal details."
 title: "[Report] "
 labels: ["report"]
 body:
@@ -196,7 +196,7 @@ Also create `.github/ISSUE_TEMPLATE/config.yml`:
 blank_issues_enabled: false
 contact_links:
   - name: Private report (with contact details)
-    url: https://mattjowen1991-hue.github.io/The-British-Hotspot-Register/report.html
+    url: https://mattjowen1991-hue.github.io/UK-Hotspot-Register/report.html
     about: Use this if you are happy to be contacted for follow-up. Not public.
   - name: Community rules
     url: https://REPLACE_WITH_SUBREDDIT_URL

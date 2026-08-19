@@ -1,6 +1,6 @@
 # Community and Intake Plan
 
-How the Reddit community, the public intake form, and The British Hotspot Register
+How the Reddit community, the public intake form, and The UK Hotspot Register
 website fit together, and how to build each part. Written to be sliced into kanban
 tickets via `docs/prompts/create-ticket.md`, the same way as everything else in
 `PROJECT.md`.
@@ -73,11 +73,12 @@ else in `PROJECT.md` section 6.
 
 ### Positioning
 UK-focused, evidence-first, and openly skeptical-friendly. The differentiator from the
-big general subs is scope (Britain) and discipline (every report scored, rumour kept
+big general subs is scope (the UK) and discipline (every report scored, rumour kept
 visibly apart from attested cases). Do not try to out-scale r/UFOs; out-rigour it.
 
 ### Rules (these encode the evidence discipline)
-1. Scope: British and Irish Isles reports and discussion.
+1. Scope: the United Kingdom - England, Scotland, Wales, and Northern Ireland. All
+   welcome, explicitly.
 2. Firsthand reports must be flagged as such and use the report template.
 3. No AI-generated images, video, or text presented as genuine. Any AI tool used for
    analysis must be labelled.

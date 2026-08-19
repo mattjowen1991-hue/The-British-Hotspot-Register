@@ -1,5 +1,5 @@
 name: "Sighting / experience report"
-description: "Log a British high-strangeness report for review. Public and anonymous. Do not include personal details."
+description: "Log a UK high-strangeness report for review. Public and anonymous. Do not include personal details."
 title: "[Report] "
 labels: ["report"]
 body:

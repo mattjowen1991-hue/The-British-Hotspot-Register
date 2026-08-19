@@ -1,5 +1,5 @@
 /* =====================================================================
-   THE BRITISH HOTSPOT REGISTER  ·  data
+   THE UK HOTSPOT REGISTER  ·  data
    ---------------------------------------------------------------------
    To add a site, copy one { ... } block and edit it. Fields:
      id          short case code, shown top-left (e.g. "UK-011")

@@ -1,5 +1,5 @@
 /* =====================================================================
-   THE BRITISH HOTSPOT REGISTER  ·  wiring
+   THE UK HOTSPOT REGISTER  ·  wiring
    ---------------------------------------------------------------------
    Owns filter/sort state and the controls (search, nation, sort, chips).
    Reads window.SITES (data.js), calls render()/renderReadout() (render.js).

@@ -1,5 +1,5 @@
 /* =====================================================================
-   THE BRITISH HOTSPOT REGISTER  ·  rendering, filtering, sorting
+   THE UK HOTSPOT REGISTER  ·  rendering, filtering, sorting
    ---------------------------------------------------------------------
    Reads window.SITES (data.js) and the shared `state` object (main.js).
    main.js wires controls to this file's render() and calls it on load.
