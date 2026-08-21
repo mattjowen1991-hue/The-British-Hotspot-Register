@@ -10,8 +10,8 @@ conventions to follow, and how work is organised.
 
 A static, browser-based research archive cataloguing UK "high-strangeness"
 hotspots: places where paranormal, UAP, and cryptid reports cluster in one area.
-It belongs to theparanormalpad.com. The audience is serious researchers, not casual
-readers, so the tone is investigative and sober, not spooky or sensational.
+The audience is serious researchers, not casual readers, so the tone is
+investigative and sober, not spooky or sensational.
 
 The core idea: every site is scored on two independent axes and sorted by how well
 it holds up, so well-attested cases stay visibly separate from tabloid-amplified ones.

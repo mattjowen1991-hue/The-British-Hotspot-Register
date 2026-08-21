@@ -2,9 +2,8 @@
 
 A static, browser-based research archive cataloguing UK "high-strangeness"
 hotspots: places where paranormal, UAP, and cryptid reports cluster in one area.
-Part of [theparanormalpad.com](https://theparanormalpad.com). Every site is scored
-on two independent axes - Strangeness and Evidence Quality - so well-attested cases
-stay visibly separate from tabloid-amplified ones.
+Every site is scored on two independent axes - Strangeness and Evidence Quality -
+so well-attested cases stay visibly separate from tabloid-amplified ones.
 
 ## Running it locally
 
