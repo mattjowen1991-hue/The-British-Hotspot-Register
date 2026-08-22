@@ -234,6 +234,7 @@ main{padding:8px 0 60px}
   opacity:0;
   transform:translateY(14px);
   animation:rise .5s ease forwards;
+  scroll-margin-top:90px;
 }
 @keyframes rise{to{opacity:1;transform:none}}
 .card:hover{border-color:var(--line-2)}
@@ -281,6 +282,8 @@ main{padding:8px 0 60px}
 }
 
 .summary{color:var(--haze);font-size:14px;line-height:1.6;margin-bottom:16px}
+.summary p{margin:0 0 10px}
+.summary p:last-child{margin-bottom:0}
 .summary strong{color:var(--paper);font-weight:600}
 
 /* twin-axis meters: the signature element */
@@ -319,13 +322,37 @@ summary:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
 }
 .notes b{color:var(--haze);font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:5px;color:var(--haze-dim)}
 
-.sources{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
-.sources a,.sources span{
+.sources{display:flex;flex-direction:column;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.source-item{font-size:12px;line-height:1.55;color:var(--haze-dim)}
+.source-item a,.source-item .source-label{
   font-family:var(--mono);font-size:11px;letter-spacing:0.03em;color:var(--haze);
   text-decoration:none;border-bottom:1px solid transparent;
 }
-.sources a:hover{color:var(--amber);border-bottom-color:var(--amber-line)}
-.sources span{color:var(--haze-dim)}
+.source-item a:hover{color:var(--amber);border-bottom-color:var(--amber-line)}
+.source-note{margin-left:6px}
+.source-weak{
+  margin-left:6px;font-family:var(--mono);font-size:9.5px;letter-spacing:0.06em;
+  text-transform:uppercase;color:var(--haze-dim);font-style:italic;
+}
+
+.prosaic{border-top:none;margin-top:12px}
+.prosaic summary{padding:0 0 8px}
+.prosaic-list{list-style:none;display:flex;flex-direction:column;gap:10px;padding:4px 0 2px}
+.prosaic-list li{font-size:12.5px;line-height:1.55;color:var(--haze)}
+.prosaic-list b{color:var(--paper)}
+.prosaic-source{margin-left:2px}
+.prosaic-source a,.prosaic-source .source-label{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:0.03em;color:var(--haze-dim);
+  text-decoration:none;border-bottom:1px solid transparent;
+}
+.prosaic-source a:hover{color:var(--amber);border-bottom-color:var(--amber-line)}
+
+.reddit-link{
+  display:inline-block;margin-top:14px;font-family:var(--mono);font-size:11px;
+  letter-spacing:0.05em;color:var(--amber);text-decoration:none;
+  border-bottom:1px solid var(--amber-line);
+}
+.reddit-link:hover{color:var(--paper)}
 
 .empty{
   grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--haze-dim);
