@@ -79,13 +79,15 @@ Each site is one object. Fields:
 - `phenomena` - array of tag strings. Tags are reused across sites to build the filter
   chips automatically, so reuse existing tag spellings exactly rather than inventing
   near-duplicates.
-- `tier` - "documented" | "mixed" | "volume" | "single". Drives the standing stamp.
+- `tier` - "documented" | "mixed" | "volume" | "single" | "explained" | "contested". Drives the standing stamp.
 - `strangeness` - integer 0-100 (Axis A).
 - `evidence` - integer 0-100 (Axis B).
-- `summary` - 1-2 sentences, original wording. `<strong>` is the only allowed inline tag.
+- `summary` - the narrative, original wording, house-style shape (see HOUSE-STYLE.md). `<strong>` is the only allowed inline tag.
 - `cases` - array of `{ year, title, desc }`.
 - `notes` - optional skeptical / context line.
-- `sources` - array of `{ label, url }`. Omit `url` for a text-only source note.
+- `sources` - array of `{ label, url?, note?, strength }`. `strength` is "primary" | "reputable" | "weak". Omit `url` for a text-only source note.
+- `prosaic` - optional array of `{ explanation, why, sources }`, one mundane candidate per item. Renders as an expander below `notes`.
+- `redditThread` - URL string, empty until the case's Reddit thread is posted. Renders a "Discuss on Reddit" link when non-empty.
 
 Full documented schema: `data/schema.md`.
 

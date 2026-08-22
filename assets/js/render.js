@@ -5,8 +5,8 @@
    main.js wires controls to this file's render() and calls it on load.
    ===================================================================== */
 
-const TIER_LABEL = {documented:"Well-documented", mixed:"Mixed", volume:"Volume-driven", single:"Single-source"};
-const TIER_PIP   = {documented:"solid", mixed:"two", volume:"two", single:"hollow"};
+const TIER_LABEL = {documented:"Well-documented", mixed:"Mixed", volume:"Volume-driven", single:"Single-source", explained:"Likely explained", contested:"Contested"};
+const TIER_PIP   = {documented:"solid", mixed:"two", volume:"two", single:"hollow", explained:"two", contested:"hollow"};
 
 const grid = document.getElementById("grid");
 const countEl = document.getElementById("count");
@@ -24,14 +24,39 @@ function meter(label, val){
 }
 
 function sourceHTML(src){
+  return src.map(x=>{
+    const link = x.url
+      ? `<a href="${x.url}" target="_blank" rel="noopener">${esc(x.label)} &#8599;</a>`
+      : `<span class="source-label">${esc(x.label)}</span>`;
+    const note = x.note ? `<span class="source-note">${esc(x.note)}</span>` : "";
+    const weak = x.strength==="weak" ? `<span class="source-weak">lower-confidence source</span>` : "";
+    return `<div class="source-item">${link}${note}${weak}</div>`;
+  }).join("");
+}
+
+function prosaicSourceHTML(src){
   return src.map(x=> x.url
     ? `<a href="${x.url}" target="_blank" rel="noopener">${esc(x.label)} &#8599;</a>`
-    : `<span>${esc(x.label)}</span>`
-  ).join("");
+    : `<span class="source-label">${esc(x.label)}</span>`
+  ).join(", ");
+}
+
+function prosaicHTML(items){
+  if(!items || !items.length) return "";
+  return `<details class="prosaic">
+    <summary><span class="plus">+</span> Prosaic explanations</summary>
+    <ul class="prosaic-list">
+      ${items.map(p=>`<li><b>${esc(p.explanation)}.</b> ${esc(p.why)}${p.sources && p.sources.length ? ` <span class="prosaic-source">${prosaicSourceHTML(p.sources)}</span>` : ""}</li>`).join("")}
+    </ul>
+  </details>`;
+}
+
+function redditHTML(url){
+  return url ? `<a class="reddit-link" href="${url}" target="_blank" rel="noopener">Discuss on Reddit &#8599;</a>` : "";
 }
 
 function card(s,i){
-  return `<article class="card" style="animation-delay:${Math.min(i*60,420)}ms">
+  return `<article class="card" id="${s.id}" style="animation-delay:${Math.min(i*60,420)}ms">
     <div class="card-top">
       <span class="caseid">${s.id}</span>
       <span class="stamp"><span class="pip ${TIER_PIP[s.tier]}"></span>${TIER_LABEL[s.tier]}</span>
@@ -50,7 +75,9 @@ function card(s,i){
         ${s.cases.map(c=>`<div class="caserow"><div class="caseyr">${esc(c.year)}</div><div class="casetitle">${esc(c.title)}</div><div class="casedesc">${esc(c.desc)}</div></div>`).join("")}
       </div>
       ${s.notes?`<div class="notes"><b>Skeptical read</b>${esc(s.notes)}</div>`:""}
+      ${prosaicHTML(s.prosaic)}
       <div class="sources">${sourceHTML(s.sources)}</div>
+      ${redditHTML(s.redditThread)}
     </details>
   </article>`;
 }

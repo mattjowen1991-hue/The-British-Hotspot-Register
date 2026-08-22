@@ -27,3 +27,8 @@ document.getElementById("sort").addEventListener("change",e=>{state.sort=e.targe
 
 renderReadout();
 render();
+
+if(location.hash){
+  const target = document.getElementById(location.hash.slice(1));
+  if(target) target.scrollIntoView({block:"start"});
+}
