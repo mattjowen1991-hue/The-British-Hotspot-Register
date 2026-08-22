@@ -282,6 +282,8 @@ main{padding:8px 0 60px}
 }
 
 .summary{color:var(--haze);font-size:14px;line-height:1.6;margin-bottom:16px}
+.summary p{margin:0 0 10px}
+.summary p:last-child{margin-bottom:0}
 .summary strong{color:var(--paper);font-weight:600}
 
 /* twin-axis meters: the signature element */

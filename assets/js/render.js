@@ -15,6 +15,9 @@ function esc(t){return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g
 function rich(t){ // allow only <strong>
   return esc(t).replace(/&lt;strong&gt;/g,"<strong>").replace(/&lt;\/strong&gt;/g,"</strong>");
 }
+function richParagraphs(t){ // split on blank lines, rich() each paragraph
+  return t.split(/\n\s*\n/).map(p=>`<p>${rich(p.trim())}</p>`).join("");
+}
 
 function meter(label, val){
   return `<div>
@@ -64,7 +67,7 @@ function card(s,i){
     <h3>${esc(s.name)}</h3>
     <div class="place">${esc(s.region)} &nbsp;·&nbsp; <span class="coords">${esc(s.coords)}</span> &nbsp;·&nbsp; ${esc(s.period)}</div>
     <div class="tags">${s.phenomena.map(p=>`<span class="tag">${esc(p)}</span>`).join("")}</div>
-    <p class="summary">${rich(s.summary)}</p>
+    <div class="summary">${richParagraphs(s.summary)}</div>
     <div class="meters">
       ${meter("A · Strangeness", s.strangeness)}
       ${meter("B · Evidence", s.evidence)}
