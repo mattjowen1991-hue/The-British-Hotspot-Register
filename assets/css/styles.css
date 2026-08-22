@@ -49,7 +49,7 @@ header{
   right:-80px;
   width:480px;
   height:480px;
-  background-image:url("../img/hero-glyph.png");
+  background-image:url("../img/hero-glyph.png?v=2");
   background-size:contain;
   background-repeat:no-repeat;
   -webkit-mask-image:radial-gradient(circle,#000 45%,transparent 72%);
